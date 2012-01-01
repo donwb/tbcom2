@@ -1,5 +1,6 @@
 // comment
 var express = require('express')
+var PhotoProvider = require('./PhotoProvider').PhotoProvider;
 
 var app = module.exports = express.createServer();
 
@@ -25,14 +26,19 @@ app.configure('production', function(){
     app.use(express.errorHandler());
 });
 
+var PhotoProvider = new PhotoProvider();
+
 //
 //-------Routes go here ----
 app.get('/', function(req, res) {
-    res.render('index.jade', {layout: true,
-        locals: {
-            title: 'Traci Browning Photography'
-        }}
-    );
+    PhotoProvider.findAll(function (error, photos){
+       res.render('index.jade', {layout: true,
+            locals: {
+                title: 'Traci Browning Photography'
+            }}
+        ); 
+    })
+    
 });
 
 // ------end routes------

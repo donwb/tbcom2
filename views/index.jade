@@ -1,2 +1,12 @@
 div
     P Hello!
+
+    P Home page image is
+        div= homePhoto[0].Name
+        -var file = 'http://tracibrowning.com/images/' + homePhoto[0].Photo;
+        img(src= file)
+
+    div What's New!
+    div= siteContent[0].WhatsNew
+    
+    

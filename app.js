@@ -1,6 +1,9 @@
 // comment
-var express = require('express')
+var express = require('express');
+var mongodb = require('mongodb');
 var PhotoProvider = require('./PhotoProvider').PhotoProvider;
+var SiteProvider = require('./SiteDataProvider').SiteProvider;
+
 
 var app = module.exports = express.createServer();
 
@@ -27,19 +30,31 @@ app.configure('production', function(){
 });
 
 var PhotoProvider = new PhotoProvider();
+var SiteProvider = new SiteProvider();
 
 //
 //-------Routes go here ----
 app.get('/', function(req, res) {
-    PhotoProvider.findAll(function (error, photos){
-       res.render('index.jade', {layout: true,
-            locals: {
-                title: 'Traci Browning Photography'
-            }}
-        ); 
+   
+    PhotoProvider.findHomeImage(function (error, photo){
+        SiteProvider.getWhatsNew(function (error, content) {
+            console.log(photo);
+            console.log('whats new ' + content)
+           res.render('index.jade', {layout: true,
+                locals: {
+                    title: 'Traci Browning Photography',
+                    homePhoto: photo,
+                    siteContent: content
+                }}
+            );      
+        }) 
+       
     })
-    
+
 });
+
+
+
 
 // ------end routes------
 

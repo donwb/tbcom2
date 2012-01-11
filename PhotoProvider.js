@@ -9,7 +9,8 @@ var Photo = new Schema({
     Description: String,
     Gallery: String,
     Photo: String,
-    PriceTier: String
+    PriceTier: String,
+    HomeImage: Boolean
 });
 
 mongoose.model('Photo', Photo);
@@ -25,5 +26,21 @@ PhotoProvider.prototype.findAll = function(callback) {
     });
 };
 
+PhotoProvider.prototype.findImage = function(imageName, callback) {
+    console.log('in find - looking for: ' + imageName);
+
+    Photo.find({'Name': imageName}, function(err, photos){
+        callback(null, photos);
+    });
+};
+
+PhotoProvider.prototype.findHomeImage = function(callback) {
+    console.log('in findHomeImage');
+    
+    Photo.find({HomeImage: true}, function(err, photo){
+        console.log('photo: ' + photo);
+        callback(null, photo);
+    });
+};
 
 exports.PhotoProvider = PhotoProvider;

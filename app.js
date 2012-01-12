@@ -36,21 +36,29 @@ var SiteProvider = new SiteProvider();
 //-------Routes go here ----
 app.get('/', function(req, res) {
    
-    PhotoProvider.findHomeImage(function (error, photo){
-        SiteProvider.getWhatsNew(function (error, content) {
-            console.log(photo);
-            console.log('whats new ' + content)
-           res.render('index.jade', {layout: true,
-                locals: {
-                    title: 'Traci Browning Photography',
-                    homePhoto: photo,
-                    siteContent: content
-                }}
-            );      
-        }) 
-       
-    })
+   var photos = 'test';
+   var content;
 
+    PhotoProvider.findHomeImage(function (error, photo){
+        console.log('THE PHOTOS ARE ' + photos);
+        photos = photo;
+    });
+
+    SiteProvider.getWhatsNew(function (error, c) {
+        content = c;
+    });
+
+    console.log('photos var - ' + photos);
+    console.log('content var - ');
+
+
+   res.render('index.jade', {layout: true,
+        locals: {
+            title: 'Traci Browning Photography',
+            homePhoto: photos,
+            siteContent: content
+        }}
+    );
 });
 
 

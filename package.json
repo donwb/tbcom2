@@ -1,0 +1,22 @@
+{
+  "author": "Don Browning <don.browning@turner.com>",
+  "name": "tbcom2",
+  "description": "official website for traci browning photography",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:donwb/tbcom2.git"
+  },
+  "main": "app.js",
+  "engines": {
+    "node": "~0.6.5"
+  },
+  "dependencies": {
+    "express": "latest",
+    "express-messages": "latest",
+    "jade": "latest",
+    "mongoose": "latest",
+    "mongodb": "latest"
+  },
+  "devDependencies": {}
+}

@@ -37,9 +37,11 @@ var SiteProvider = new SiteProvider();
 app.get('/', function(req, res) {
    
    PhotoProvider.findHomeImage(function (error, photo){
-        SiteProvider.getWhatsNew(function (error, content) {
+        SiteProvider.getSiteContent(function (error, content) {
             console.log(photo);
             console.log('whats new ' + content);
+            console.log('galleries' + content.Galleries);
+
            res.render('index.jade', {layout: true,
                 locals: {
                     title: 'Traci Browning Photography',
@@ -53,7 +55,31 @@ app.get('/', function(req, res) {
 
 });
 
+app.get('/galleries', function(req, res) {
+    
+    SiteProvider.getSiteContent(function (error, content) {
+        res.render('galleries.jade', {layout: true,
+            locals: {
+                title: 'Galleries',
+                siteContent: content
+            }}
+        );
+    });  
+});
 
+app.get('/galleries/:gallery', function(req, res) {
+    var gallery = req.param('gallery');
+
+    PhotoProvider.getGalleryImages(gallery, function(error, galleryPhotos) {
+
+        res.render('gallery.jade', {layout: true,
+            locals: {
+                title: gallery + ' Gallery',
+                photos: galleryPhotos
+            }}
+        );    
+    });
+});
 
 
 // ------end routes------

@@ -1,5 +1,6 @@
 div
-    P Hello!
+    -for(var i=0;i<siteContent.Galleries.length;i++)
+       span= siteContent.Galleries[i] + '  |  ' 
 
     P Home page image is
         div= homePhoto[0].Name
@@ -7,6 +8,6 @@ div
         img(src= file)
 
     div What's New!
-    div= siteContent[0].WhatsNew
+    div= siteContent.WhatsNew
     
     

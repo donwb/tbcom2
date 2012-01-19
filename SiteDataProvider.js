@@ -5,7 +5,8 @@ mongoose.connect('mongodb://tbcom:traci1@ds029317.mongolab.com:29317/tbcom');
 var Schema = mongoose.Schema, ObjectID = Schema.ObjectId;
 
 var Site = new Schema({
-    WhatsNew: String
+    WhatsNew: String,
+    Galleries: [String]
 });
 
 //mongoose.model('site', Site);
@@ -16,12 +17,8 @@ SiteProvider = function() {};
 // put the prototype functions here..
 
 
-SiteProvider.prototype.getWhatsNew = function(callback) {
-    console.log('in findall');
-
-    Site.find({}, function(err, s) {
-        console.log(Site);
-        console.log('find query:' + s.WhatsNew);
+SiteProvider.prototype.getSiteContent = function(callback) {
+    Site.findOne({}, function(err, s) {
         callback(null, s)
     });
 };

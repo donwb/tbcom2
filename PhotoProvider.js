@@ -43,4 +43,12 @@ PhotoProvider.prototype.findHomeImage = function(callback) {
     });
 };
 
+PhotoProvider.prototype.getGalleryImages = function(galleryName, callback) {
+    
+    Photo.find({'Gallery': galleryName}, function(err, photos) {
+        console.log(photos);
+        callback(null, photos);
+    });
+};
+
 exports.PhotoProvider = PhotoProvider;
